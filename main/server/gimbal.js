@@ -196,7 +196,7 @@ function wsConnect() {
       } else {
         battPercent = 0;
       }
-      line1Span.innerHTML = " Version: "+gimbalState.version+" Battery: "+gimbalState.batteryLevel+"V ("+battPercent+"%)";
+      line1Span.innerHTML = " Version: "+settings.version+" Battery: "+gimbalState.batteryLevel+"V ("+battPercent+"%)";
       line2Span.innerHTML = "Pitch: "+gimbalState.pitch+"° Roll: "+gimbalState.roll+"° Pan: "+gimbalState.pan+"°";
     } else if(gimbalState.cmd == 'SETTINGS') {
       JSONToForm("settingsForm", gimbalState);

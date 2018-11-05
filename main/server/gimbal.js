@@ -196,12 +196,14 @@ function wsConnect() {
       } else {
         battPercent = 0;
       }
-      line1Span.innerHTML = " Version: "+settings.version+" Battery: "+gimbalState.batteryLevel+"V ("+battPercent+"%)";
+      version="N/A";
+      if(settings) {
+        version=settings.version;
+      }
+      line1Span.innerHTML = " Version: "+version+" Battery: "+gimbalState.batteryLevel+"V ("+battPercent+"%)";
       line2Span.innerHTML = "Pitch: "+gimbalState.pitch+"° Roll: "+gimbalState.roll+"° Pan: "+gimbalState.pan+"°";
     } else if(gimbalState.cmd == 'SETTINGS') {
       JSONToForm("settingsForm", gimbalState);
-      document.onkeydown = "";
-      document.onkeyup = "";
     }
   }
 

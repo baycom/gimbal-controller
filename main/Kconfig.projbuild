@@ -16,6 +16,20 @@ config BUTTON_PIN
     GPIO Connected to a active low button for resetting to factory defaults after a long press. Many of the ESP32 development
     boards have one connected to pin 0.
 
+config IRTX_PIN
+  int "IR LED GPIO Pin"
+  range 0 40
+  default 5
+  help
+    GPIO Connected to an infrared LED
+
+config IRRX_PIN
+  int "IR receiver GPIO Pin"
+  range 0 40
+  default 14
+  help
+    GPIO Connected to an infrared receiver
+
 config WIFI_SSID
   string "WIFI Station/AP SSID"
   default "Gimbal-Controller"

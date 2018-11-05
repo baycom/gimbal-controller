@@ -22,9 +22,9 @@ static const char* TAG = "infrared";
 #endif
 
 #define RMT_TX_CHANNEL    1     /*!< RMT channel for transmitter */
-#define RMT_TX_GPIO_NUM  5     /*!< GPIO number for transmitter signal */
+#define RMT_TX_GPIO_NUM  CONFIG_IRTX_PIN     /*!< GPIO number for transmitter signal */
 #define RMT_RX_CHANNEL    0     /*!< RMT channel for receiver */
-#define RMT_RX_GPIO_NUM  14     /*!< GPIO number for receiver */
+#define RMT_RX_GPIO_NUM  CONFIG_IRRX_PIN     /*!< GPIO number for receiver */
 #define RMT_CLK_DIV      100    /*!< RMT counter clock divider */
 #define RMT_TICK_10_US    (80000000/RMT_CLK_DIV/100000)   /*!< RMT counter value for 10 us.(Source clock is APB clock) */
 

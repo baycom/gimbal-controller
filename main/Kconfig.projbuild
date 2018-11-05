@@ -1,0 +1,37 @@
+menu "Gimbal Controller"
+
+config LED_PIN
+  int "LED GPIO Pin"
+  range 0 40
+  default 2
+  help
+    GPIO Connected to LED. Many of the ESP32 development
+    boards have one connected to pin 2.
+
+config BUTTON_PIN
+  int "BUTTON GPIO Pin"
+  range 0 40
+  default 0
+  help
+    GPIO Connected to a active low button for resetting to factory defaults after a long press. Many of the ESP32 development
+    boards have one connected to pin 0.
+
+config WIFI_SSID
+  string "WIFI Station/AP SSID"
+  default "Gimbal-Controller"
+  help
+    Name of access point or station that the gimbal controller connects to.
+
+config WIFI_SECRET
+  string "WIFI Password"
+  default "gimbal"
+  help
+    Password of access point or station that the gimbal controller connects to.
+
+config WIFI_HOSTNAME
+  string "WIFI Station Hostname"
+  default "gimbal-controller"
+  help
+    Hostname to be requested via DHCP
+
+endmenu

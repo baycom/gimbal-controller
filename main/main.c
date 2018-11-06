@@ -11,6 +11,17 @@
 
 #define TAG "gimbalcontroller"
 
+void button_cb(btn_action_t action) {
+    switch(action) {
+        case LONG_PRESS:
+            reset_config();
+            esp_restart();
+            break;
+        default:
+            break;
+    }
+}
+
 #if 0
 extern "C" {
 void app_main();
@@ -34,7 +45,7 @@ void app_main()
     } else {
         ESP_ERROR_CHECK(wifi_ap_init(settings));
     }
-    ESP_ERROR_CHECK(button_init());
+    ESP_ERROR_CHECK(button_init(button_cb));
     ESP_ERROR_CHECK(gimbalCmd_init());
     ESP_ERROR_CHECK(rmt_tx_init());
     ESP_ERROR_CHECK(web_init());

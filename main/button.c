@@ -1,7 +1,6 @@
 #include "gimbalcontroller.h"
 #include "driver/gpio.h"
 #include "button.h"
-#include "config.h"
 
 #define TAG "button"
 #define ESP_INTR_FLAG_DEFAULT 0
@@ -12,6 +11,7 @@ typedef struct {
 	uint32_t timestamp;
 } gpio_event_t;
 
+static btn_callback_f _callback = NULL;
 static QueueHandle_t gpio_evt_queue;
 static uint32_t last_click = 0;
 
@@ -36,7 +36,7 @@ static void button_watchdog_task() {
 
 	while(1) {
 		if (xQueueReceive(gpio_evt_queue, &gpio_evt, 1000)) {
-//			_callback(SINGLE_CLICK);
+			_callback(SINGLE_CLICK);
 			//20 sec to perform the action
 			if(gpio_evt.gpio_val) {
 				if (!first_click || gpio_evt.timestamp - first_click > 20000) {
@@ -49,9 +49,7 @@ static void button_watchdog_task() {
 			} else {
 				if (last_down && gpio_evt.timestamp - last_down > 5000) {
 					ESP_LOGI(TAG, "long press gpio[%d] [%d in sequence]",gpio_evt.gpio_num, count);
-					reset_config();
-					esp_restart();
-//					_callback(LONG_PRESS);
+					_callback(LONG_PRESS);
 					first_click=0;
 					last_down=0;
 					count=0;
@@ -60,10 +58,10 @@ static void button_watchdog_task() {
 
 			//due to flickering we cannot precisely count all clicks anyway
 			if (count == 10) {
-//				_callback(MANY_CLICKS);
+				_callback(MANY_CLICKS);
 			}
 			if (count >= 20) {
-//				_callback(TOO_MANY_CLICKS);
+				_callback(TOO_MANY_CLICKS);
 				first_click=0;
 				count=0;
 			}
@@ -71,8 +69,9 @@ static void button_watchdog_task() {
 	}
 }
 
-esp_err_t button_init() 
+esp_err_t button_init(btn_callback_f callback) 
 {
+	_callback = callback;
 	gpio_evt_queue = xQueueCreate(10, sizeof(gpio_event_t));
 	gpio_install_isr_service(ESP_INTR_FLAG_DEFAULT);
 	gpio_pad_select_gpio(CONFIG_BUTTON_PIN);

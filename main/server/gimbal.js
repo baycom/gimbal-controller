@@ -101,7 +101,11 @@ powerButton.onclick     = function()    {cmd("POWER", !gimbalState.powerState);}
 modeButton.onclick      = function()    {cmd("MODE", (gimbalState.mode+1)%3);};
 posResetButton.onclick  = function()    {cmd("POSITIONRESET", 0);};
 posResetRevButton.onclick  = function() {cmd("POSITIONRESET", 1);};
-settingsButton.onclick  = function()    {cmd("SETTINGS");modal.style.display = "block";};
+settingsButton.onclick  = function()    {
+  document.onkeydown = "";
+  document.onkeyup = "";
+  cmd("SETTINGS");modal.style.display = "block";
+};
 closeModal.onclick = function()         {
   document.onkeydown = checkKeycode;
   document.onkeyup = checkKeycode;  

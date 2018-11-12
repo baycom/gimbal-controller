@@ -285,11 +285,11 @@ if (haveEvents) {
 
 function moveGimbal(scaledx,scaledy)
 {
-  var startx = 300;
-  var starty = 300;
-  if(settings) {
-    scaledy*=(settings.gimbal_joystickmode&1)?-1.0:1.0;
-  }
+  var startx = 0;
+  var starty = 0;
+//  if(settings) {
+//    scaledy*=(settings.gimbal_joystickmode&1)?-1.0:1.0;
+//  }
   if(scaledx != 0 || scaledy != 0) {
     console.log("scaledx "+scaledx+" scaledy: "+scaledy);
   }

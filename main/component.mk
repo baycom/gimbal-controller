@@ -1,4 +1,2 @@
-#
-# "main" pseudo-component makefile.
-#
-# (Uses default behaviour of compiling all source files in directory, adding 'include' to include path.)
+# files to add to the web server
+COMPONENT_EMBED_FILES := server/index.html server/error.html server/gimbal.js server/virtualjoystick.js server/favicon.ico
